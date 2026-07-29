@@ -272,8 +272,8 @@ function CompetitiveIntel() {
         ))}
       </div>
       <Card style={{ borderLeft: `4px solid ${C.red}` }}>
-        <p style={{ fontSize: 14, fontWeight: 800, color
-                <p style={{ fontSize: 13, color: C.muted, margin: 0, lineHeight: 1.7 }}>{whyNotST[activeReason].body}</p>
+        <p style={{ fontSize: 14, fontWeight: 800, color: C.navy, margin: "0 0 6px" }}>{whyNotST[activeReason].title}</p>
+        <p style={{ fontSize: 13, color: C.muted, margin: 0, lineHeight: 1.7 }}>{whyNotST[activeReason].body}</p>
       </Card>
  
       <div style={{ marginTop: 16, background: C.navy, borderRadius: 12, padding: "18px 22px" }}>
