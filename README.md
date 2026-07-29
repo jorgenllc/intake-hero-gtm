@@ -1,4 +1,4 @@
-# Intake Hero GTM Strategy Dashboard
+# Dispatch Hero GTM Strategy Dashboard
 
 A comprehensive Go-To-Market playbook for Home Services sales teams targeting 3–15 technician HVAC and plumbing shops.
 
@@ -18,14 +18,7 @@ Eight interactive tabs covering:
 
 This tool was built independently as an SDR productivity system. It contains no proprietary customer data—just GTM frameworks, ICP logic, and outreach methodology. Company name and specific product references have been anonymized per an employment agreement.
 
-## How to Use
-
-This is a React component. To run locally or deploy:
-- Copy the JSX file into a React project
-- Import and render as: `<IntakeHeroGTM />`
-- No backend dependencies required
-
-## Deploy to Vercel (30 seconds)
+## Deploy to Vercel
 
 1. Fork this repo
 2. Go to [vercel.com](https://vercel.com)
@@ -33,13 +26,13 @@ This is a React component. To run locally or deploy:
 4. Select this repo
 5. Deploy
 
-Live demo will be available at your Vercel URL.
+Live demo available at your Vercel URL.
 
 ## About
 
-Built by **Johnny Scott**  
-Sales Development | GTM Strategist  
-[LinkedIn](https://linkedin.com/in/johnny-b-scott/
+Built by **Johnny Scott**
+Sales Development | GTM Strategist
+[LinkedIn](https://linkedin.com/in/johnny-b-scott/)
 
 ---
 
