@@ -1007,7 +1007,7 @@ export default function DispatchHeroGTM() {
         <span style={{ fontSize: 15 }}>🔒</span>
         <p style={{ fontSize: 12, color: "#854D0E", margin: 0, lineHeight: 1.6 }}>
           <strong>Portfolio Note:</strong> This tool was built independently as a personal SDR workflow system for a previous employer in the AI chat / home services SaaS space. Company name and specific product references have been anonymized under "Dispatch Hero" per an IP assignment clause in my employment agreement. The GTM framework, research methodology, ICP logic, and outreach architecture are entirely my own work.{" "}
-          <span style={{ fontStyle: "italic" }}>Built by Johnny Jorgensen · 2025</span>
+          <span style={{ fontStyle: "italic" }}>Built by Johnny Scott · 2025</span>
         </p>
       </div>
 
@@ -1018,8 +1018,8 @@ export default function DispatchHeroGTM() {
       {/* Footer */}
       <div style={{ borderTop: `1px solid ${C.border}`, background: C.white, padding: "18px 24px", textAlign: "center" }}>
         <p style={{ fontSize: 12, color: C.muted, margin: 0 }}>
-          Built by <strong style={{ color: C.navy }}>Johnny Jorgensen</strong> · SDR / GTM Strategist ·{" "}
-          <a href="https://linkedin.com/in/johnnyjorgensen" style={{ color: C.violet, textDecoration: "none", fontWeight: 600 }}>LinkedIn</a>
+          Built by <strong style={{ color: C.navy }}>Johnny Scott</strong> · SDR / GTM Strategist ·{" "}
+          <a href="https://linkedin.com/in/johnny-b-scott" style={{ color: C.violet, textDecoration: "none", fontWeight: 600 }}>LinkedIn</a>
         </p>
       </div>
     </div>
