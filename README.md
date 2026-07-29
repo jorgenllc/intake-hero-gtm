@@ -1,4 +1,4 @@
-# Dispatch Hero GTM Strategy Dashboard
+# Leadflo — Vertical Expansion GTM Framework
 
 A comprehensive Go-To-Market playbook for Home Services sales teams targeting 3–15 technician HVAC and plumbing shops.
 

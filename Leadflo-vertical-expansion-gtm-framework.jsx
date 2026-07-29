@@ -1,13 +1,40 @@
 import { useState } from "react";
  
 const C = {
-  violet: "#6C63E8", dark: "#4E46C8", navy: "#2B2460", lavender: "#F0EFFD",
-  white: "#FFFFFF", off: "#F8F7FF", text: "#1A1535", muted: "#6B6B8A",
-  border: "#E2E0F5", slate: "#0F0E1A", slateLight: "#1A1830",
-  green: "#16A34A", greenBg: "#DCFCE7", greenLight: "#22C55E",
-  amber: "#B45309", amberBg: "#FEF3C7", amberLight: "#F59E0B",
-  red: "#DC2626", redBg: "#FEE2E2",
-  sky: "#0C9CF4",
+  // Apollo earth/sand system
+  bg: "#F9F8F6",           // warm neutral page background
+  surface: "#FFFFFF",       // white card surfaces
+  navBg: "#CBC8C5",        // Apollo sand-40 navigation
+  border: "#E2DFDC",       // warm gray border (sand-30)
+  off: "#F2F0EE",          // warm off-white alternating bg
+  text: "#0D0D0D",         // near-black primary text
+  muted: "#67635F",        // warm mid-gray secondary text
+  // Apollo sunbeam accent (CTA + on-dark emphasis)
+  accent: "#EBF212",
+  onDark: "#EBF212",       // text accent on dark surfaces
+  // Apollo soft pastels
+  softPurple: "#C1B7FF",
+  softPink: "#FFBDF5",
+  softBlue: "#C5DDFF",
+  softYellow: "#F4FB6E",
+  // Semantic / functional (unchanged)
+  green: "#16A34A",
+  greenBg: "#DCFCE7",
+  greenLight: "#22C55E",
+  amber: "#92400E",
+  amberBg: "#FEF3C7",
+  amberLight: "#F59E0B",
+  red: "#DC2626",
+  redBg: "#FEE2E2",
+  // Legacy aliases remapped to Apollo equivalents
+  white: "#FFFFFF",
+  navy: "#0D0D0D",         // dark surface bg & heading text
+  violet: "#0D0D0D",       // active/selected → near-black (Apollo primary)
+  dark: "#1A1A18",
+  lavender: "#F2F0EE",     // was pale purple → warm off-white
+  slate: "#111110",
+  slateLight: "#1C1C1A",
+  sky: "#3B82F6",          // kept for semantic blue uses
 };
  
 const TABS = [
@@ -22,17 +49,20 @@ const TABS = [
 ];
  
 const Pill = ({ children, color = C.violet, bg }) => (
-  <span style={{ display: "inline-block", padding: "2px 10px", borderRadius: 99, fontSize: 10.5, fontWeight: 700, letterSpacing: "0.07em", textTransform: "uppercase", background: bg || color + "18", color, border: `1px solid ${color}30` }}>{children}</span>
+  <span style={{ display: "inline-block", padding: "2px 8px", borderRadius: 4, fontSize: 10.5, fontWeight: 600, letterSpacing: "0.06em", textTransform: "uppercase", background: bg || (color === C.violet ? C.off : color + "15"), color: color === C.violet ? C.text : color, border: `1px solid ${color === C.violet ? C.border : color + "35"}` }}>{children}</span>
 );
  
 const Card = ({ children, style = {}, dark = false }) => (
-  <div style={{ background: dark ? C.navy : C.white, border: `1px solid ${dark ? "transparent" : C.border}`, borderRadius: 12, padding: "18px 20px", ...style }}>{children}</div>
+  <div style={{ background: dark ? C.navy : C.surface, border: `1px solid ${dark ? "transparent" : C.border}`, borderRadius: 8, padding: "18px 20px", ...style }}>{children}</div>
 );
  
 const STitle = ({ eyebrow, title, sub }) => (
   <div style={{ marginBottom: 24 }}>
-    <Pill>{eyebrow}</Pill>
-    <h2 style={{ fontSize: 24, fontWeight: 900, color: C.navy, margin: "10px 0 6px", letterSpacing: "-0.02em" }}>{title}</h2>
+    <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
+      <div style={{ width: 3, height: 14, background: C.accent, borderRadius: 2, flexShrink: 0 }} />
+      <span style={{ fontSize: 10.5, fontWeight: 600, color: C.muted, textTransform: "uppercase", letterSpacing: "0.08em" }}>{eyebrow}</span>
+    </div>
+    <h2 style={{ fontFamily: "'DM Serif Display', Georgia, serif", fontSize: 26, fontWeight: 400, color: C.navy, margin: "0 0 8px", letterSpacing: "-0.01em", lineHeight: 1.2 }}>{title}</h2>
     {sub && <p style={{ color: C.muted, fontSize: 14, lineHeight: 1.65, maxWidth: 620, margin: 0 }}>{sub}</p>}
   </div>
 );
@@ -62,17 +92,17 @@ function Overview() {
   const winZones = [
     {
       icon: "🏆", title: "HCP User Base — Primary Win Zone", color: C.sky,
-      body: "HCP's built-in chat is universally panned by actual users — no AI, no qualification logic, shuts off after hours and reverts to a contact form. HCP serves exactly the 3–15 tech profile that is Dispatch Hero's ICP. These shops are already frustrated with their chat tool and have not committed to an enterprise stack.",
+      body: "HCP's built-in chat is universally panned by actual users — no AI, no qualification logic, shuts off after hours and reverts to a contact form. HCP serves exactly the 3–15 tech profile that is Leadflo's ICP. These shops are already frustrated with their chat tool and have not committed to an enterprise stack.",
       signal: "Ask: 'Are you using the chat widget that comes with HousecallPro?'",
     },
     {
       icon: "📵", title: "No FSM Platform — Fear Anchor Play", color: C.violet,
-      body: "Owner-operators still running phones themselves, using Google Calendar or paper dispatch. They've never heard of Scheduling Pro. Dispatch Hero is the AI upgrade that costs a fraction of the full ServiceTitan stack — positioned as a bridge, not a downgrade.",
+      body: "Owner-operators still running phones themselves, using Google Calendar or paper dispatch. They've never heard of Scheduling Pro. Leadflo is the AI upgrade that costs a fraction of the full ServiceTitan stack — positioned as a bridge, not a downgrade.",
       signal: "Ask: 'What's your process for web leads that come in after hours?'",
     },
     {
       icon: "📈", title: "Growth-Stage Shops ($1M–$3M) — Aspirational Anchor", color: C.green,
-      body: "ServiceTitan is aspirational for these shops but cost-prohibitive at $245–$500+/tech/month plus $5–50K implementation. Dispatch Hero delivers the AI intake capability now, without locking them into an enterprise platform. Bridge play: 'Same capability, none of the complexity.'",
+      body: "ServiceTitan is aspirational for these shops but cost-prohibitive at $245–$500+/tech/month plus $5–50K implementation. Leadflo delivers the AI intake capability now, without locking them into an enterprise platform. Bridge play: 'Same capability, none of the complexity.'",
       signal: "Ask: 'Have you looked at ServiceTitan? What stopped you?'",
     },
   ];
@@ -81,14 +111,14 @@ function Overview() {
     <div>
       <STitle
         eyebrow="ICP & Market Opportunity"
-        title="Who Dispatch Hero Is (and Isn't) Built For"
+        title="Who Leadflo Is (and Isn't) Built For"
         sub="This ICP is deliberately narrow. Tighter targeting means sharper messaging, faster qualification, and higher conversion. The disqualifiers are as important as the fit criteria."
       />
  
       <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 10, marginBottom: 24 }}>
         {[["HVAC + Plumbing", "Primary verticals"], ["3–15 Techs", "Target company size"], ["$500K–$3M", "Annual revenue range"], ["HCP / None", "Current FSM platform"]].map(([val, label]) => (
           <Card key={val} dark style={{ textAlign: "center", padding: "16px 14px" }}>
-            <p style={{ fontSize: 22, fontWeight: 900, color: C.violet, margin: "0 0 4px", letterSpacing: "-0.02em" }}>{val}</p>
+            <p style={{ fontSize: 22, fontWeight: 900, color: C.accent, margin: "0 0 4px", letterSpacing: "-0.02em" }}>{val}</p>
             <p style={{ fontSize: 11, color: C.lavender, margin: 0, opacity: 0.7, textTransform: "uppercase", letterSpacing: "0.07em" }}>{label}</p>
           </Card>
         ))}
@@ -128,7 +158,7 @@ function Overview() {
           <h3 style={{ fontSize: 12, fontWeight: 700, color: C.navy, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 12 }}>Core GTM Thesis</h3>
           <Card dark style={{ marginBottom: 10 }}>
             <p style={{ color: C.lavender, fontSize: 13, lineHeight: 1.65, margin: 0 }}>
-              Dispatch Hero targets the gap <strong style={{ color: C.white }}>below ServiceTitan's floor</strong> — owner-operated HVAC and plumbing shops paying for leads but losing them after hours because their chat tool has no AI, no qualification logic, and goes dark at 5pm. These shops can't justify ST's enterprise price tag but need enterprise-grade intake capability.
+              Leadflo targets the gap <strong style={{ color: C.white }}>below ServiceTitan's floor</strong> — owner-operated HVAC and plumbing shops paying for leads but losing them after hours because their chat tool has no AI, no qualification logic, and goes dark at 5pm. These shops can't justify ST's enterprise price tag but need enterprise-grade intake capability.
             </p>
           </Card>
           <Card style={{ background: C.greenBg, border: `1px solid #BBF7D0` }}>
@@ -138,7 +168,7 @@ function Overview() {
         </div>
       </div>
  
-      <h3 style={{ fontSize: 12, fontWeight: 700, color: C.navy, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 12 }}>Three Win Zones — Where Dispatch Hero Wins Cleanly</h3>
+      <h3 style={{ fontSize: 12, fontWeight: 700, color: C.navy, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 12 }}>Three Win Zones — Where Leadflo Wins Cleanly</h3>
       <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
         {winZones.map(w => (
           <Card key={w.title} style={{ borderLeft: `4px solid ${w.color}` }}>
@@ -170,7 +200,7 @@ function CompetitiveIntel() {
       ai: "None. No logic, no qualification",
       afterHours: "Reverts to contact form",
       threat: "Low", threatColor: C.green, threatBg: C.greenBg,
-      verdict: "Weak product. Customers are frustrated with it. This is Dispatch Hero's primary displacement target within the HCP customer base.",
+      verdict: "Weak product. Customers are frustrated with it. This is Leadflo's primary displacement target within the HCP customer base.",
       dispatchEdge: "AI qualification, 24/7 coverage, video-enabled engagement, dispatch-ready lead routing. Not even a close comparison.",
     },
     {
@@ -179,8 +209,8 @@ function CompetitiveIntel() {
       ai: "Minimal. Basic form only",
       afterHours: "Limited without add-ons",
       threat: "Medium", threatColor: C.amber, threatBg: C.amberBg,
-      verdict: "Targets larger shops (20+ techs). Too expensive and complex for Dispatch Hero's 3–15 tech ICP. Rarely a head-to-head competitor at this market segment.",
-      dispatchEdge: "Price, simplicity, no $50K implementation. Dispatch Hero is positioned as the accessible alternative for shops that aspire to ST but can't justify the cost.",
+      verdict: "Targets larger shops (20+ techs). Too expensive and complex for Leadflo's 3–15 tech ICP. Rarely a head-to-head competitor at this market segment.",
+      dispatchEdge: "Price, simplicity, no $50K implementation. Leadflo is positioned as the accessible alternative for shops that aspire to ST but can't justify the cost.",
     },
     {
       name: "ServiceTitan Scheduling Pro", icon: "⚡",
@@ -188,15 +218,15 @@ function CompetitiveIntel() {
       ai: "Conditional logic, 1–2 qualifying questions, dispatch-ready",
       afterHours: "24/7 via Schedule Engine (human agents)",
       threat: "High", threatColor: C.red, threatBg: C.redBg,
-      verdict: "Real competitor IF targeting the same ICP. Has conditional workflows, qualification logic, 24/7 human agents, and full ST dispatch integration. However — it's locked inside ST, which self-selects Dispatch Hero's ICP out.",
-      dispatchEdge: "ST Scheduling Pro only exists inside the ST platform. Dispatch Hero's ICP can't afford ST. Shops that have Scheduling Pro have already disqualified themselves.",
+      verdict: "Real competitor IF targeting the same ICP. Has conditional workflows, qualification logic, 24/7 human agents, and full ST dispatch integration. However — it's locked inside ST, which self-selects Leadflo's ICP out.",
+      dispatchEdge: "ST Scheduling Pro only exists inside the ST platform. Leadflo's ICP can't afford ST. Shops that have Scheduling Pro have already disqualified themselves.",
     },
   ];
  
   const whyNotST = [
     {
       title: "Cost & Complexity Mismatch",
-      body: "ServiceTitan shops are paying $245–$500+/tech/month on the base platform alone, plus $5K–$50K in implementation fees. These are sophisticated, enterprise-minded operators with dedicated IT and office staff. Scheduling Pro is a natural upsell they've already been pitched — Dispatch Hero enters as a redundant tool, not a solution.",
+      body: "ServiceTitan shops are paying $245–$500+/tech/month on the base platform alone, plus $5K–$50K in implementation fees. These are sophisticated, enterprise-minded operators with dedicated IT and office staff. Scheduling Pro is a natural upsell they've already been pitched — Leadflo enters as a redundant tool, not a solution.",
       tag: "Cost Signal"
     },
     {
@@ -205,8 +235,8 @@ function CompetitiveIntel() {
       tag: "Product Signal"
     },
     {
-      title: "ServiceTitan Self-Selects These Shops Out of Dispatch Hero's Range",
-      body: "ServiceTitan has publicly stated its platform is 'not optimized for companies with 3 or fewer technicians' and is best suited for 20+ tech operations. The shops that can afford and fully leverage Scheduling Pro are already above Dispatch Hero's ICP ceiling. Pursuing them means longer sales cycles, higher churn risk, and direct feature comparison against a better-resourced incumbent.",
+      title: "ServiceTitan Self-Selects These Shops Out of Leadflo's Range",
+      body: "ServiceTitan has publicly stated its platform is 'not optimized for companies with 3 or fewer technicians' and is best suited for 20+ tech operations. The shops that can afford and fully leverage Scheduling Pro are already above Leadflo's ICP ceiling. Pursuing them means longer sales cycles, higher churn risk, and direct feature comparison against a better-resourced incumbent.",
       tag: "ICP Signal"
     },
   ];
@@ -252,7 +282,7 @@ function CompetitiveIntel() {
                 </div>
                 <p style={{ fontSize: 12.5, color: C.muted, margin: "0 0 8px", lineHeight: 1.6 }}>{c.verdict}</p>
                 <div style={{ background: C.lavender, borderRadius: 7, padding: "8px 12px" }}>
-                  <p style={{ fontSize: 12, fontWeight: 700, color: C.navy, margin: "0 0 2px" }}>Dispatch Hero's Edge</p>
+                  <p style={{ fontSize: 12, fontWeight: 700, color: C.navy, margin: "0 0 2px" }}>Leadflo's Edge</p>
                   <p style={{ fontSize: 12.5, color: C.muted, margin: 0, lineHeight: 1.5 }}>{c.dispatchEdge}</p>
                 </div>
               </div>
@@ -263,7 +293,7 @@ function CompetitiveIntel() {
  
       <Rule />
  
-      <h3 style={{ fontSize: 12, fontWeight: 700, color: C.red, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 12 }}>Why Dispatch Hero Should Not Pursue ServiceTitan Shops</h3>
+      <h3 style={{ fontSize: 12, fontWeight: 700, color: C.red, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 12 }}>Why Leadflo Should Not Pursue ServiceTitan Shops</h3>
       <div style={{ display: "flex", gap: 8, marginBottom: 14, flexWrap: "wrap" }}>
         {whyNotST.map((r, i) => (
           <button type="button" key={i} onClick={() => setActiveReason(i)} style={{ padding: "7px 14px", borderRadius: 8, cursor: "pointer", fontWeight: 600, fontSize: 12.5, border: `2px solid ${activeReason === i ? C.red : C.border}`, background: activeReason === i ? C.redBg : C.white, color: activeReason === i ? C.red : C.navy }}>
@@ -276,8 +306,8 @@ function CompetitiveIntel() {
         <p style={{ fontSize: 13, color: C.muted, margin: 0, lineHeight: 1.7 }}>{whyNotST[activeReason].body}</p>
       </Card>
  
-      <div style={{ marginTop: 16, background: C.navy, borderRadius: 12, padding: "18px 22px" }}>
-        <p style={{ color: C.violet, fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", margin: "0 0 8px" }}>The Rule of Thumb</p>
+      <div style={{ marginTop: 16, background: C.navy, borderRadius: 8, padding: "18px 22px" }}>
+        <p style={{ color: C.onDark, fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", margin: "0 0 8px" }}>The Rule of Thumb</p>
         <p style={{ color: C.white, fontSize: 15, fontWeight: 700, margin: 0, lineHeight: 1.5 }}>If they're on ServiceTitan — disqualify immediately. If they're on HCP, Jobber, or nothing — that's your market. Every prospecting decision flows from this filter.</p>
       </div>
     </div>
@@ -328,10 +358,10 @@ function Channels() {
       icon: "📸", name: "Organic Social (Instagram)", priority: "Tier 2", color: C.amber, allocation: 10,
       why: "Supporting channel for brand building and retargeting. Trade owners follow competitors and vendors here. Content should make the HCP chat gap feel relatable.",
       timing: "3x/week · Reels outperform static by 4:1 for this audience",
-      dos: ["Show the Dispatch Hero widget vs. HCP's basic chat", "Before/after: what HCP chat does at 9pm vs. what Dispatch Hero does", "Trade-specific hashtags", "Story polls that surface the pain"],
+      dos: ["Show the Leadflo widget vs. HCP's basic chat", "Before/after: what HCP chat does at 9pm vs. what Leadflo does", "Trade-specific hashtags", "Story polls that surface the pain"],
       donts: ["Generic SaaS marketing visuals", "Mention ServiceTitan", "Post without relevance to home services"],
       tactics: [
-        { t: "HCP Chat Comparison Reel", d: "15-second Reel: 'What happens when someone hits your site at 9pm with no AC. If you're on HCP's chat → [contact form screenshot]. With Dispatch Hero → [real-time video engagement + dispatch in 90s].' Show the contrast." },
+        { t: "HCP Chat Comparison Reel", d: "15-second Reel: 'What happens when someone hits your site at 9pm with no AC. If you're on HCP's chat → [contact form screenshot]. With Leadflo → [real-time video engagement + dispatch in 90s].' Show the contrast." },
         { t: "Story Poll for Prospecting", d: "'HousecallPro users: what happens to your web leads after hours? A) They get handled B) They hit a form and wait C) Not sure.' The responses are warm prospect signals." },
       ],
     },
@@ -426,11 +456,11 @@ function Personas() {
       emoji: "🔨", name: "The HCP Owner-Operator", role: "Owner / Founder on HousecallPro",
       priority: "Primary Target", priorityColor: C.green,
       revenue: "$500K–$2M", team: "3–10 techs", stack: "HousecallPro",
-      bio: "Bought into HCP for job management — it works well for dispatch and invoicing. But the chat widget is useless and they know it. They're losing after-hours leads and have no good solution in front of them. Dispatch Hero is the fix they didn't know existed.",
+      bio: "Bought into HCP for job management — it works well for dispatch and invoicing. But the chat widget is useless and they know it. They're losing after-hours leads and have no good solution in front of them. Leadflo is the fix they didn't know existed.",
       day: ["6:30am — Checks HCP dispatch board before coffee", "8am–5pm — On job sites or managing from the truck", "Evening — Scrolls Facebook, occasionally frustrated about missed calls", "Weekends — Admin catchup, occasionally vents in HCP user groups about the chat feature"],
       pains: ["HCP chat shuts off after hours — reverts to a contact form", "No AI qualification — even when chat is on, it's just a bubble", "Paying for LSAs but can't see which leads actually converted", "After-hours no-cool/no-heat calls going to voicemail or a dead form", "Doesn't want to move to ServiceTitan — too expensive, too complex"],
       angle: "You keep everything in HCP. We just replace the part that's broken.",
-      hook: "Quick question — are you using the chat widget that comes with HousecallPro? [pause] Yeah, we hear that a lot. It shuts off after hours and there's no AI — so if someone hits your site at 9pm with a dead furnace, they're just gone. Dispatch Hero fixes that gap without touching anything else in HCP.",
+      hook: "Quick question — are you using the chat widget that comes with HousecallPro? [pause] Yeah, we hear that a lot. It shuts off after hours and there's no AI — so if someone hits your site at 9pm with a dead furnace, they're just gone. Leadflo fixes that gap without touching anything else in HCP.",
       doSay: ["replace the chat widget", "keep everything in HCP", "booked jobs", "after-hours coverage", "no AI, no qualification", "dispatch-ready"],
       dontSay: ["replace HCP", "ServiceTitan", "platform migration", "enterprise software"],
     },
@@ -442,7 +472,7 @@ function Personas() {
       day: ["6am — Up early, answers the first calls of the day personally", "All day — On the tools while also trying to manage inbound calls", "Miss calls constantly — can't be on a roof AND answer the phone", "Evening — Realizes they missed leads, not sure how many"],
       pains: ["Can't answer the phone while on a job site", "No visibility into how many web leads they're missing", "Competitors running LSAs are faster — owner doesn't know why they're losing bids", "No after-hours process at all — website just has a phone number and a form", "Feels like they need ServiceTitan but can't afford or justify it"],
       angle: "The bigger shops in your market are running AI intake 24/7. You don't have to spend $50K to get that.",
-      hook: "The bigger HVAC shops in your market are running AI intake tools that capture and qualify every website lead 24/7 — even at 2am when the AC dies. If your site doesn't have that, you're handing those leads to competitors who do. Dispatch Hero gives you that same capability without locking you into a $500/month-per-tech enterprise platform.",
+      hook: "The bigger HVAC shops in your market are running AI intake tools that capture and qualify every website lead 24/7 — even at 2am when the AC dies. If your site doesn't have that, you're handing those leads to competitors who do. Leadflo gives you that same capability without locking you into a $500/month-per-tech enterprise platform.",
       doSay: ["booked jobs", "after-hours coverage", "same capability as the big shops", "no ServiceTitan price tag", "dispatch-ready leads"],
       dontSay: ["HousecallPro", "ServiceTitan", "workflow automation", "lead management platform"],
     },
@@ -467,7 +497,7 @@ function Personas() {
  
       <div style={{ display: "flex", gap: 8, marginBottom: 20 }}>
         {personas.map((p, i) => (
-          <button type="button" key={i} onClick={() => setActive(i)} style={{ padding: "8px 16px", borderRadius: 8, cursor: "pointer", fontWeight: 600, fontSize: 13, border: `2px solid ${active === i ? C.violet : C.border}`, background: active === i ? C.violet : C.white, color: active === i ? C.white : C.navy, transition: "all 0.15s" }}>{p.emoji} {p.name.replace("The ", "")}</button>
+          <button type="button" key={i} onClick={() => setActive(i)} style={{ padding: "8px 16px", borderRadius: 8, cursor: "pointer", fontWeight: 600, fontSize: 13, border: `2px solid ${active === i ? C.navy : C.border}`, background: active === i ? C.accent : C.surface, color: active === i ? C.navy : C.text, transition: "all 0.15s" }}>{p.emoji} {p.name.replace("The ", "")}</button>
         ))}
       </div>
  
@@ -517,9 +547,9 @@ function Personas() {
           </Card>
  
           <Card dark>
-            <p style={{ fontSize: 11, fontWeight: 700, color: C.violet, textTransform: "uppercase", letterSpacing: "0.07em", margin: "0 0 8px" }}>🎯 Messaging Angle</p>
+            <p style={{ fontSize: 11, fontWeight: 700, color: C.onDark, textTransform: "uppercase", letterSpacing: "0.07em", margin: "0 0 8px" }}>🎯 Messaging Angle</p>
             <p style={{ color: C.white, fontSize: 14, fontWeight: 700, lineHeight: 1.5, margin: "0 0 12px" }}>{p.angle}</p>
-            <p style={{ fontSize: 11, fontWeight: 700, color: C.violet, textTransform: "uppercase", letterSpacing: "0.07em", margin: "0 0 6px" }}>Opening Hook</p>
+            <p style={{ fontSize: 11, fontWeight: 700, color: C.onDark, textTransform: "uppercase", letterSpacing: "0.07em", margin: "0 0 6px" }}>Opening Hook</p>
             <p style={{ color: C.lavender, fontSize: 13, fontStyle: "italic", margin: "0 0 14px", lineHeight: 1.6 }}>"{p.hook}"</p>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
               <div style={{ background: C.greenLight + "18", borderRadius: 8, padding: "10px 12px" }}>
@@ -543,14 +573,14 @@ function Messaging() {
   const tracks = [
     {
       label: "HCP Shop Talk Track", icon: "🏠", color: C.sky,
-      context: "Prospect is currently on HousecallPro. They have HCP's basic chat. They're likely frustrated with it but haven't found an alternative. Dispatch Hero is the fix — not a replacement for HCP.",
+      context: "Prospect is currently on HousecallPro. They have HCP's basic chat. They're likely frustrated with it but haven't found an alternative. Leadflo is the fix — not a replacement for HCP.",
       script: `"Hey [Name], quick question — are you using the chat widget that comes with HousecallPro?
  
 [Pause — let them answer]
  
 Yeah, we hear that a lot. The issue is it shuts off after hours and there's no AI, so if someone hits your site at 9pm with a dead furnace, they're just gone.
  
-Dispatch Hero replaces that with an AI that qualifies the lead, captures the job info, and keeps them engaged until your team gets back to them — without replacing anything else you're using in HCP."`,
+Leadflo replaces that with an AI that qualifies the lead, captures the job info, and keeps them engaged until your team gets back to them — without replacing anything else you're using in HCP."`,
       keyFrames: [
         "Lead with the HCP chat question — not a pitch",
         "Validate their frustration before solving it",
@@ -565,11 +595,11 @@ Dispatch Hero replaces that with an AI that qualifies the lead, captures the job
  
 If your site doesn't have that, you're handing those leads to competitors who do.
  
-Dispatch Hero gives you that same capability without locking you into a $500/month-per-tech enterprise platform."`,
+Leadflo gives you that same capability without locking you into a $500/month-per-tech enterprise platform."`,
       keyFrames: [
         "Never name ServiceTitan — say 'enterprise platform'",
         "The fear is competitive disadvantage, not product features",
-        "Position Dispatch Hero as the accessible bridge — same capability, fraction of cost",
+        "Position Leadflo as the accessible bridge — same capability, fraction of cost",
         "Follow with: 'What's your current process for web leads after hours?'",
       ],
     },
@@ -625,8 +655,8 @@ Dispatch Hero gives you that same capability without locking you into a $500/mon
         ))}
       </div>
  
-      <div style={{ marginTop: 16, background: C.navy, borderRadius: 12, padding: "16px 20px" }}>
-        <p style={{ color: C.violet, fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", margin: "0 0 6px" }}>The Positioning In One Line — Use It Everywhere</p>
+      <div style={{ marginTop: 16, background: C.navy, borderRadius: 8, padding: "16px 20px" }}>
+        <p style={{ color: C.onDark, fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", margin: "0 0 6px" }}>The Positioning In One Line — Use It Everywhere</p>
         <p style={{ color: C.white, fontSize: 15, fontWeight: 700, margin: 0, lineHeight: 1.5 }}>"ServiceTitan capability. None of the $50K implementation."</p>
       </div>
     </div>
@@ -649,7 +679,7 @@ Most HCP shops I talk to either turned it off or just leave it on even though it
  
 By then, they've already called someone else.
  
-Dispatch Hero replaces that with an AI that responds in real time, qualifies the job, and keeps them engaged until your team picks it up in the morning — without changing anything else you use in HCP.
+Leadflo replaces that with an AI that responds in real time, qualifies the job, and keeps them engaged until your team picks it up in the morning — without changing anything else you use in HCP.
  
 Worth a 15-minute look?
  
@@ -662,7 +692,7 @@ If you're getting 30–50 web leads a month — conservative for an HVAC shop yo
  
 At a $600 average ticket, that's $3,600–$9,000 in missed booked jobs. Every month.
  
-Dispatch Hero covers that gap without touching anything else in HCP. The job still flows into your HCP board — you just don't lose it first.
+Leadflo covers that gap without touching anything else in HCP. The job still flows into your HCP board — you just don't lose it first.
  
 Happy to show you a 15-minute walk-through?
  
@@ -677,7 +707,7 @@ HCP's chat widget doesn't do that. It's a contact form in disguise after 5pm.
  
 78% of homeowners book the first company to respond. If your site isn't responding, someone else is.
  
-15 minutes — I'll show you exactly what Dispatch Hero looks like on an HCP shop like yours.
+15 minutes — I'll show you exactly what Leadflo looks like on an HCP shop like yours.
  
 — [Your Name]` },
     { touch: "Email 4", day: "Day 13", type: "Breakup / Resource", color: C.muted,
@@ -686,7 +716,7 @@ HCP's chat widget doesn't do that. It's a contact form in disguise after 5pm.
  
 I'll keep this short — if the timing's off, totally fine.
  
-I put together a one-page breakdown of the HCP chat gap and what Dispatch Hero does differently: [link]. Might be useful for peak season planning even if now's not the right time.
+I put together a one-page breakdown of the HCP chat gap and what Leadflo does differently: [link]. Might be useful for peak season planning even if now's not the right time.
  
 If you ever want to see it live on an HCP site like yours, my calendar link is below.
  
@@ -703,7 +733,7 @@ Quick observation — the larger HVAC shops in [City] are running AI intake tool
  
 If your site doesn't have that, those leads are going to whoever does.
  
-Dispatch Hero gives you that same capability without locking you into a $500/month-per-tech enterprise platform.
+Leadflo gives you that same capability without locking you into a $500/month-per-tech enterprise platform.
  
 — [Your Name]` },
     { touch: "Email 2", day: "Day 4", type: "Cost Contrast", color: C.green,
@@ -712,7 +742,7 @@ Dispatch Hero gives you that same capability without locking you into a $500/mon
  
 Most AI intake tools built for home services shops are either garbage (generic chat widgets with no AI) or require a full ServiceTitan implementation — $245+ per tech per month plus a $10–50K setup.
  
-Dispatch Hero is purpose-built for residential HVAC and plumbing shops — responds to every web visitor in under 90 seconds, qualifies the job, and books it before they call someone else.
+Leadflo is purpose-built for residential HVAC and plumbing shops — responds to every web visitor in under 90 seconds, qualifies the job, and books it before they call someone else.
  
 No six-figure commitment. No 3-month onboarding.
  
@@ -727,7 +757,7 @@ Peak season is close. Last year, how many web leads did you miss during the firs
  
 Most HVAC shops that don't have 24/7 AI coverage lose their highest-urgency leads exactly when they can least afford to — when the phones are buried and the web form sits until morning.
  
-Happy to show you what Dispatch Hero looks like on a site like yours before summer hits.
+Happy to show you what Leadflo looks like on a site like yours before summer hits.
  
 — [Your Name]` },
     { touch: "Email 4", day: "Day 14", type: "Breakup", color: C.muted,
@@ -746,8 +776,8 @@ If the timing ever works, my calendar's below.
  
   const callScript = [
     { step: "Qualify First", content: "Before the pitch: 'Hey [Name], this is [Your Name]. Quick question before I say anything else — are you on ServiceTitan?' [If yes → 'Got it, no worries — have a great day.']", note: "Qualify before pitching. Don't waste a single word on a disqualified prospect." },
-    { step: "HCP Mode", content: "'Quick question — are you using the chat widget that comes with HousecallPro?' [Pause] 'Yeah, we hear that a lot. It shuts off after hours with no AI — if someone hits your site at 9pm with a dead furnace, they're just gone. Dispatch Hero replaces that without changing anything else in HCP.'", note: "For HCP shops. Lead with the widget question. Validate before solving." },
-    { step: "No-FSM Mode", content: "'The bigger HVAC shops in your market are running AI intake 24/7 — even at 2am when the AC dies. If your site doesn't have that, you're handing those leads to competitors who do. Dispatch Hero gives you that capability without a $500/month-per-tech enterprise platform.'", note: "For no-FSM shops. Fear anchor, then immediate contrast with cost." },
+    { step: "HCP Mode", content: "'Quick question — are you using the chat widget that comes with HousecallPro?' [Pause] 'Yeah, we hear that a lot. It shuts off after hours with no AI — if someone hits your site at 9pm with a dead furnace, they're just gone. Leadflo replaces that without changing anything else in HCP.'", note: "For HCP shops. Lead with the widget question. Validate before solving." },
+    { step: "No-FSM Mode", content: "'The bigger HVAC shops in your market are running AI intake 24/7 — even at 2am when the AC dies. If your site doesn't have that, you're handing those leads to competitors who do. Leadflo gives you that capability without a $500/month-per-tech enterprise platform.'", note: "For no-FSM shops. Fear anchor, then immediate contrast with cost." },
     { step: "The Ask", content: "'Can I show you 15 minutes of what it looks like on an HVAC site like yours? I'll show you specifically how it handles the after-hours gap.'", note: "Short demo framing. Not 'a call' — 'what it looks like on a site like yours.'" },
   ];
  
@@ -758,12 +788,12 @@ If the timing ever works, my calendar's below.
       <div style={{ display: "flex", gap: 8, marginBottom: 16 }}>
         <div style={{ display: "flex", gap: 6 }}>
           {[{ id: "hcp", label: "🏠 HCP Displacement" }, { id: "nofm", label: "📵 No-FSM Fear Anchor" }].map(t => (
-            <button type="button" key={t.id} onClick={() => setMode(t.id)} style={{ padding: "7px 14px", borderRadius: 8, cursor: "pointer", fontWeight: 600, fontSize: 12.5, border: `2px solid ${mode === t.id ? C.violet : C.border}`, background: mode === t.id ? C.violet : C.white, color: mode === t.id ? C.white : C.navy }}>{t.label}</button>
+            <button type="button" key={t.id} onClick={() => setMode(t.id)} style={{ padding: "7px 14px", borderRadius: 8, cursor: "pointer", fontWeight: 600, fontSize: 12.5, border: `2px solid ${mode === t.id ? C.navy : C.border}`, background: mode === t.id ? C.accent : C.surface, color: mode === t.id ? C.navy : C.text }}>{t.label}</button>
           ))}
         </div>
         <div style={{ display: "flex", gap: 6, marginLeft: "auto" }}>
           {[{ id: "email", label: "📧 Email" }, { id: "call", label: "📞 Call Script" }].map(t => (
-            <button type="button" key={t.id} onClick={() => setView(t.id)} style={{ padding: "7px 14px", borderRadius: 8, cursor: "pointer", fontWeight: 600, fontSize: 12.5, border: `2px solid ${view === t.id ? C.dark : C.border}`, background: view === t.id ? C.dark : C.white, color: view === t.id ? C.white : C.navy }}>{t.label}</button>
+            <button type="button" key={t.id} onClick={() => setView(t.id)} style={{ padding: "7px 14px", borderRadius: 8, cursor: "pointer", fontWeight: 600, fontSize: 12.5, border: `2px solid ${view === t.id ? C.navy : C.border}`, background: view === t.id ? C.navy : C.surface, color: view === t.id ? C.white : C.text }}>{t.label}</button>
           ))}
         </div>
       </div>
@@ -800,7 +830,7 @@ If the timing ever works, my calendar's below.
       {view === "call" && (
         <div>
           <Card dark style={{ marginBottom: 16 }}>
-            <p style={{ color: C.violet, fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.07em", margin: "0 0 4px" }}>Call Windows</p>
+            <p style={{ color: C.onDark, fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.07em", margin: "0 0 4px" }}>Call Windows</p>
             <p style={{ color: C.white, fontSize: 14, fontWeight: 700, margin: "0 0 2px" }}>Tue–Thu · 7:30–9:30am & 4:30–6:00pm local time</p>
             <p style={{ color: C.lavender, fontSize: 12.5, margin: 0, opacity: 0.75 }}>These owners are on job sites 8am–4pm. Catch them before the first call of the day or when they're wrapping up.</p>
           </Card>
@@ -828,24 +858,24 @@ function Partners() {
   const partners = [
     {
       icon: "🏠", name: "HousecallPro", tier: "Co-opetition Partner", color: C.sky,
-      headline: "Dispatch Hero replaces HCP's weakest feature — and that keeps customers on HCP instead of churning to ServiceTitan.",
-      why: "HCP's chat bubble is universally disliked. If HCP customers don't get a proper AI intake solution, they eventually migrate to ServiceTitan for Scheduling Pro — and HCP loses the account entirely. Dispatch Hero prevents that migration. The pitch to HCP: 'We fix the part your customers hate, which keeps them on your platform.'",
+      headline: "Leadflo replaces HCP's weakest feature — and that keeps customers on HCP instead of churning to ServiceTitan.",
+      why: "HCP's chat bubble is universally disliked. If HCP customers don't get a proper AI intake solution, they eventually migrate to ServiceTitan for Scheduling Pro — and HCP loses the account entirely. Leadflo prevents that migration. The pitch to HCP: 'We fix the part your customers hate, which keeps them on your platform.'",
       angle: "Your customers are frustrated with your chat widget. We replace it — and they stay in HCP for everything else. We're not competing with HCP; we're fixing the feature that's driving your churn.",
-      structure: ["Marketplace listing — Dispatch Hero as the recommended chat/intake solution for HCP shops", "Native API integration: Dispatch Hero-booked jobs flow into HCP as dispatch-ready records", "Co-marketing to HCP's HVAC/Plumbing user base", "HCP CSMs refer Dispatch Hero when customers ask about web lead conversion"],
-      tension: "This is co-opetition. Dispatch Hero displaces HCP's native chat widget. The key framing: we're not competing with HCP's FSM business — we're making it stickier by fixing a feature gap they haven't prioritized.",
+      structure: ["Marketplace listing — Leadflo as the recommended chat/intake solution for HCP shops", "Native API integration: Leadflo-booked jobs flow into HCP as dispatch-ready records", "Co-marketing to HCP's HVAC/Plumbing user base", "HCP CSMs refer Leadflo when customers ask about web lead conversion"],
+      tension: "This is co-opetition. Leadflo displaces HCP's native chat widget. The key framing: we're not competing with HCP's FSM business — we're making it stickier by fixing a feature gap they haven't prioritized.",
     },
     {
       icon: "🏢", name: "HVAC/Plumbing Marketing Agencies", tier: "Highest Priority", color: C.violet,
-      headline: "Agencies drive the traffic. Dispatch Hero makes it convert. A natural co-sell with no overlap.",
-      why: "Digital agencies serving HVAC and plumbing clients are already invested in their clients' success. They drive LSA, paid search, and SEO traffic. If that traffic doesn't convert, their own ROI story weakens. Dispatch Hero makes their campaigns look better — which is a natural sell.",
-      angle: "You're generating the demand. Dispatch Hero closes the gap between the click and the booked job. Your clients win, your retention improves, and you have a stronger attribution story.",
-      structure: ["Referral fee per closed Dispatch Hero account", "White-label or co-sell arrangement", "Joint case study development once early clients are live", "Agency co-marketing: 'Our clients get priority Dispatch Hero onboarding'"],
+      headline: "Agencies drive the traffic. Leadflo makes it convert. A natural co-sell with no overlap.",
+      why: "Digital agencies serving HVAC and plumbing clients are already invested in their clients' success. They drive LSA, paid search, and SEO traffic. If that traffic doesn't convert, their own ROI story weakens. Leadflo makes their campaigns look better — which is a natural sell.",
+      angle: "You're generating the demand. Leadflo closes the gap between the click and the booked job. Your clients win, your retention improves, and you have a stronger attribution story.",
+      structure: ["Referral fee per closed Leadflo account", "White-label or co-sell arrangement", "Joint case study development once early clients are live", "Agency co-marketing: 'Our clients get priority Leadflo onboarding'"],
       tension: "None. Pure complementary play. No product overlap.",
     },
     {
       icon: "🏛️", name: "ACCA / PHCC", tier: "Brand & Access", color: C.amber,
       headline: "Association endorsement shortcuts the trust gap that makes cold outreach harder.",
-      why: "ACCA (HVAC) and PHCC (Plumbing) members are exactly Dispatch Hero's ICP. Association preferred vendor status is borrowed trust at scale — and with zero logos, that trust gap is Dispatch Hero's biggest sales friction point right now.",
+      why: "ACCA (HVAC) and PHCC (Plumbing) members are exactly Leadflo's ICP. Association preferred vendor status is borrowed trust at scale — and with zero logos, that trust gap is Leadflo's biggest sales friction point right now.",
       angle: "We're building the only intake solution purpose-built for HVAC and Plumbing contractors below the ServiceTitan price threshold. We'd love to bring it to your member base.",
       structure: ["Member discount / preferred vendor status", "Association newsletter feature", "'Peak Season Lead Response' webinar sponsorship", "Conference booth presence at ACCA Conference and PHCCExpo"],
       tension: "None. Association relationships take time but compound.",
@@ -854,8 +884,8 @@ function Partners() {
       icon: "🏠", name: "Nuvehome.com", tier: "Co-Sell Opportunity", color: C.dark,
       headline: "Overlapping contractor networks — a referral structure benefits both sides.",
       why: "This partner operates in the home services space with existing contractor relationships. A co-sell or referral arrangement surfaces warm HVAC/Plumbing accounts that already trust their network.",
-      angle: "Our contractor bases overlap. Dispatch Hero solves the web lead conversion problem for shops already in your network. A referral structure requires zero product work from either side.",
-      structure: ["Referral fee for closed Dispatch Hero accounts from partner network", "Co-marketing to shared audience", "Joint content (webinar, guide)", "Data sharing on overlapping accounts"],
+      angle: "Our contractor bases overlap. Leadflo solves the web lead conversion problem for shops already in your network. A referral structure requires zero product work from either side.",
+      structure: ["Referral fee for closed Leadflo accounts from partner network", "Co-marketing to shared audience", "Joint content (webinar, guide)", "Data sharing on overlapping accounts"],
       tension: "Understand the Nuvehome model clearly before structuring — ensure there's no conflict in contractor base overlap.",
     },
   ];
@@ -865,7 +895,7 @@ function Partners() {
  
   return (
     <div>
-      <STitle eyebrow="Partner Strategy" title="Co-opetition, Co-sell & Borrowed Trust" sub="The HCP relationship is the most nuanced in this stack — Dispatch Hero displaces their weakest feature while simultaneously partnering with them. Every other partner is pure complementary play." />
+      <STitle eyebrow="Partner Strategy" title="Co-opetition, Co-sell & Borrowed Trust" sub="The HCP relationship is the most nuanced in this stack — Leadflo displaces their weakest feature while simultaneously partnering with them. Every other partner is pure complementary play." />
  
       <div style={{ display: "flex", gap: 8, marginBottom: 20, flexWrap: "wrap" }}>
         {partners.map((p, i) => (
@@ -897,7 +927,7 @@ function Partners() {
           )}
  
           <Card dark>
-            <p style={{ fontSize: 11, fontWeight: 700, color: C.violet, textTransform: "uppercase", letterSpacing: "0.07em", margin: "0 0 8px" }}>Pitch Angle</p>
+            <p style={{ fontSize: 11, fontWeight: 700, color: C.onDark, textTransform: "uppercase", letterSpacing: "0.07em", margin: "0 0 8px" }}>Pitch Angle</p>
             <p style={{ color: C.lavender, fontSize: 13, fontStyle: "italic", lineHeight: 1.6, margin: 0 }}>"{p.angle}"</p>
           </Card>
         </div>
@@ -923,7 +953,7 @@ function Seasonal() {
     { s: "Pre-Peak Spring", m: "March–May", icon: "🌱", c: C.amber, urgency: "High", context: "Best outreach window — owners have time and are thinking about summer. This is when HCP shops are most open to fixing their after-hours gap before it becomes a crisis.", angle: "Summer's 6 weeks out. Last year, how many web leads did you miss during the first heat wave? Let's fix the HCP chat gap before it happens again." },
     { s: "Peak Summer", m: "June–August", icon: "☀️", c: C.red, urgency: "Extreme", context: "Phones buried. HCP chat off. After-hours web leads piling up in the morning queue. Owners are stressed and moving fast. Keep outreach extremely short — they have no bandwidth.", angle: "Your HCP chat is off right now and it's 9pm. What's happening to those web leads tonight?" },
     { s: "Shoulder Fall", m: "Sept–Nov", icon: "🍂", c: C.violet, urgency: "Medium", context: "Post-peak retrospective window. Owners have bandwidth and regrets. Replacement job season. Great time to run the 'what slipped through summer' angle.", angle: "Peak season's over. How many after-hours web leads sat in your HCP form until morning? Here's what that number looks like." },
-    { s: "Peak Winter", m: "Dec–Feb", icon: "❄️", c: C.dark, urgency: "Extreme", context: "No-heat calls at midnight. Same dynamic as summer but for heating. HCP shops in Sunbelt markets (Dallas, Atlanta, Charlotte) feel this hard.", angle: "A no-heat call at midnight in January is a $4,000 job. Your HCP chat won't catch it. Dispatch Hero will." },
+    { s: "Peak Winter", m: "Dec–Feb", icon: "❄️", c: C.dark, urgency: "Extreme", context: "No-heat calls at midnight. Same dynamic as summer but for heating. HCP shops in Sunbelt markets (Dallas, Atlanta, Charlotte) feel this hard.", angle: "A no-heat call at midnight in January is a $4,000 job. Your HCP chat won't catch it. Leadflo will." },
   ];
   const data = hvac;
  
@@ -933,7 +963,7 @@ function Seasonal() {
  
       <div style={{ display: "flex", gap: 8, marginBottom: 20 }}>
         {["hvac", "plumbing"].map(v => (
-          <button type="button" key={v} onClick={() => setTab(v)} style={{ padding: "8px 18px", borderRadius: 8, cursor: "pointer", fontWeight: 700, fontSize: 13, border: `2px solid ${tab === v ? C.violet : C.border}`, background: tab === v ? C.violet : C.white, color: tab === v ? C.white : C.navy }}>{v === "hvac" ? "🌡️ HVAC" : "🔧 Plumbing (Same Framework)"}</button>
+          <button type="button" key={v} onClick={() => setTab(v)} style={{ padding: "8px 18px", borderRadius: 8, cursor: "pointer", fontWeight: 700, fontSize: 13, border: `2px solid ${tab === v ? C.navy : C.border}`, background: tab === v ? C.accent : C.surface, color: tab === v ? C.navy : C.text }}>{v === "hvac" ? "🌡️ HVAC" : "🔧 Plumbing (Same Framework)"}</button>
         ))}
       </div>
  
@@ -961,7 +991,7 @@ function Seasonal() {
 }
  
 // ─── APP SHELL ────────────────────────────────────────────────────────────────
-export default function DispatchHeroGTM() {
+export default function LeadfloGTM() {
   const [activeTab, setActiveTab] = useState("overview");
   const render = () => {
     switch (activeTab) {
@@ -978,35 +1008,38 @@ export default function DispatchHeroGTM() {
   };
  
   return (
-    <div style={{ minHeight: "100vh", background: C.off, fontFamily: "'Inter', 'Helvetica Neue', sans-serif" }}>
-      {/* Header */}
-      <div style={{ background: C.navy, padding: "14px 24px", display: "flex", alignItems: "center", justifyContent: "space-between", position: "sticky", top: 0, zIndex: 100, boxShadow: "0 2px 12px rgba(43,36,96,0.2)" }}>
+    <div style={{ minHeight: "100vh", background: C.bg, fontFamily: "'Inter', 'Helvetica Neue', sans-serif" }}>
+      {/* Header — Apollo sand nav */}
+      <div style={{ background: C.navBg, padding: "13px 24px", display: "flex", alignItems: "center", justifyContent: "space-between", position: "sticky", top: 0, zIndex: 100, boxShadow: "0 1px 0 rgba(0,0,0,0.12)" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          <div style={{ background: C.violet, borderRadius: 8, padding: "6px 12px", display: "flex", gap: 6, alignItems: "center" }}>
-            <span style={{ fontSize: 14 }}>⚡</span>
-            <span style={{ color: C.white, fontWeight: 900, fontSize: 13, letterSpacing: "0.1em" }}>DISPATCH HERO</span>
+          <div style={{ background: "#E8EEF8", borderRadius: 8, padding: "6px 14px", display: "inline-flex", flexDirection: "column", alignItems: "flex-start", gap: 1 }}>
+            <div style={{ display: "flex", alignItems: "baseline" }}>
+              <span style={{ fontFamily: "'Inter', sans-serif", fontWeight: 900, fontSize: 17, color: "#0D0D0D", letterSpacing: "-0.02em", lineHeight: 1 }}>Lead</span>
+              <span style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, fontSize: 17, color: "#0D0D0D", letterSpacing: "-0.01em", lineHeight: 1 }}>flo</span>
+            </div>
+            <span style={{ fontFamily: "'Inter', sans-serif", fontWeight: 500, fontSize: 7, color: "#0D0D0D", letterSpacing: "0.12em", textTransform: "uppercase", lineHeight: 1 }}>Lead Management &amp; Optimization</span>
           </div>
-          <p style={{ color: C.lavender, fontSize: 12, margin: 0, opacity: 0.6 }}>Home Services GTM Strategy — SDR Playbook</p>
+          <p style={{ color: C.muted, fontSize: 12, margin: 0 }}>Home Services GTM Strategy — SDR Playbook</p>
         </div>
         <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-          {[["HCP / No-FSM Only", C.sky], ["3–15 Techs", C.green], ["$500K–$3M", C.violet], ["❌ No ST Shops", C.red]].map(([label, color]) => (
-            <span key={label} style={{ fontSize: 11, background: color + "22", color: label.startsWith("❌") ? C.red : color === C.sky ? C.sky : color, border: `1px solid ${color}35`, borderRadius: 20, padding: "3px 10px", fontWeight: 700 }}>{label}</span>
+          {[["HCP / No-FSM Only", C.softBlue, "#1D4ED8"], ["3–15 Techs", C.softYellow, "#5B4A00"], ["$500K–$3M", C.softPurple, "#5B3FC1"], ["❌ No ST Shops", C.redBg, C.red]].map(([label, bg, color]) => (
+            <span key={label} style={{ fontSize: 11, background: bg, color, border: `1px solid ${color}30`, borderRadius: 6, padding: "3px 10px", fontWeight: 600 }}>{label}</span>
           ))}
         </div>
       </div>
  
       {/* Tabs */}
-      <div style={{ background: C.white, borderBottom: `1px solid ${C.border}`, padding: "0 24px", display: "flex", gap: 2, overflowX: "auto" }}>
+      <div style={{ background: C.surface, borderBottom: `1px solid ${C.border}`, padding: "0 24px", display: "flex", gap: 2, overflowX: "auto" }}>
         {TABS.map(t => (
-          <button type="button" key={t.id} onClick={() => setActiveTab(t.id)} style={{ padding: "12px 14px", fontSize: 12.5, fontWeight: 600, cursor: "pointer", background: "none", border: "none", color: activeTab === t.id ? C.violet : C.muted, borderBottom: activeTab === t.id ? `2px solid ${C.violet}` : "2px solid transparent", whiteSpace: "nowrap", transition: "all 0.15s" }}>{t.label}</button>
+          <button type="button" key={t.id} onClick={() => setActiveTab(t.id)} style={{ padding: "12px 14px", fontSize: 12.5, fontWeight: 600, cursor: "pointer", background: "none", border: "none", color: activeTab === t.id ? C.navy : C.muted, borderBottom: activeTab === t.id ? `2px solid ${C.navy}` : "2px solid transparent", whiteSpace: "nowrap", transition: "all 0.15s" }}>{t.label}</button>
         ))}
       </div>
  
       {/* Portfolio Disclosure Banner */}
-      <div style={{ background: "#FEF9C3", borderBottom: "1px solid #FDE047", padding: "10px 24px", display: "flex", alignItems: "center", gap: 10 }}>
+      <div style={{ background: C.off, borderBottom: `1px solid ${C.border}`, padding: "10px 24px", display: "flex", alignItems: "center", gap: 10 }}>
         <span style={{ fontSize: 15 }}>🔒</span>
-        <p style={{ fontSize: 12, color: "#854D0E", margin: 0, lineHeight: 1.6 }}>
-          <strong>Portfolio Note:</strong> This tool was built independently as a personal SDR workflow system for a previous employer in the AI chat / home services SaaS space. Company name and specific product references have been anonymized under "Dispatch Hero" per an IP assignment clause in my employment agreement. The GTM framework, research methodology, ICP logic, and outreach architecture are entirely my own work.{" "}
+        <p style={{ fontSize: 12, color: C.muted, margin: 0, lineHeight: 1.6 }}>
+          <strong style={{ color: C.text }}>Portfolio Note:</strong> This tool was built independently as a personal SDR workflow system for a previous employer in the AI chat / home services SaaS space. Company name and specific product references have been anonymized under "Leadflo" per an IP assignment clause in my employment agreement. The GTM framework, research methodology, ICP logic, and outreach architecture are entirely my own work.{" "}
           <span style={{ fontStyle: "italic" }}>Built by Johnny Scott · 2025</span>
         </p>
       </div>
@@ -1016,10 +1049,10 @@ export default function DispatchHeroGTM() {
       </div>
 
       {/* Footer */}
-      <div style={{ borderTop: `1px solid ${C.border}`, background: C.white, padding: "18px 24px", textAlign: "center" }}>
+      <div style={{ borderTop: `1px solid ${C.border}`, background: C.surface, padding: "18px 24px", textAlign: "center" }}>
         <p style={{ fontSize: 12, color: C.muted, margin: 0 }}>
           Built by <strong style={{ color: C.navy }}>Johnny Scott</strong> · SDR / GTM Strategist ·{" "}
-          <a href="https://linkedin.com/in/johnny-b-scott" style={{ color: C.violet, textDecoration: "none", fontWeight: 600 }}>LinkedIn</a>
+          <a href="https://linkedin.com/in/johnny-b-scott" style={{ color: C.text, textDecoration: "none", fontWeight: 600 }}>LinkedIn</a>
         </p>
       </div>
     </div>

@@ -1,9 +1,9 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import DispatchHeroGTM from "../DispatchHero_gtm.jsx";
+import LeadfloGTM from "../Leadflo-vertical-expansion-gtm-framework.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <DispatchHeroGTM />
+    <LeadfloGTM />
   </StrictMode>
 );
