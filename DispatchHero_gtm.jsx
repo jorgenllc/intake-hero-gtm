@@ -7,7 +7,7 @@ const C = {
   green: "#16A34A", greenBg: "#DCFCE7", greenLight: "#22C55E",
   amber: "#B45309", amberBg: "#FEF3C7", amberLight: "#F59E0B",
   red: "#DC2626", redBg: "#FEE2E2",
-  hcp: "#0C9CF4",
+  sky: "#0C9CF4",
 };
  
 const TABS = [
@@ -61,7 +61,7 @@ function Overview() {
  
   const winZones = [
     {
-      icon: "🏆", title: "HCP User Base — Primary Win Zone", color: C.hcp,
+      icon: "🏆", title: "HCP User Base — Primary Win Zone", color: C.sky,
       body: "HCP's built-in chat is universally panned by actual users — no AI, no qualification logic, shuts off after hours and reverts to a contact form. HCP serves exactly the 3–15 tech profile that is Dispatch Hero's ICP. These shops are already frustrated with their chat tool and have not committed to an enterprise stack.",
       signal: "Ask: 'Are you using the chat widget that comes with HousecallPro?'",
     },
@@ -266,7 +266,7 @@ function CompetitiveIntel() {
       <h3 style={{ fontSize: 12, fontWeight: 700, color: C.red, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 12 }}>Why Dispatch Hero Should Not Pursue ServiceTitan Shops</h3>
       <div style={{ display: "flex", gap: 8, marginBottom: 14, flexWrap: "wrap" }}>
         {whyNotST.map((r, i) => (
-          <button key={i} onClick={() => setActiveReason(i)} style={{ padding: "7px 14px", borderRadius: 8, cursor: "pointer", fontWeight: 600, fontSize: 12.5, border: `2px solid ${activeReason === i ? C.red : C.border}`, background: activeReason === i ? C.redBg : C.white, color: activeReason === i ? C.red : C.navy }}>
+          <button type="button" key={i} onClick={() => setActiveReason(i)} style={{ padding: "7px 14px", borderRadius: 8, cursor: "pointer", fontWeight: 600, fontSize: 12.5, border: `2px solid ${activeReason === i ? C.red : C.border}`, background: activeReason === i ? C.redBg : C.white, color: activeReason === i ? C.red : C.navy }}>
             {r.tag}
           </button>
         ))}
@@ -366,7 +366,7 @@ function Channels() {
  
       <div style={{ display: "flex", gap: 8, marginBottom: 8, flexWrap: "wrap" }}>
         {channels.map((c, i) => (
-          <button key={i} onClick={() => setOpen(i)} style={{ padding: "7px 13px", borderRadius: 8, cursor: "pointer", fontWeight: 600, fontSize: 12.5, border: `2px solid ${open === i ? c.color : C.border}`, background: open === i ? c.color : C.white, color: open === i ? C.white : C.navy, transition: "all 0.15s" }}>{c.icon} {c.name}</button>
+          <button type="button" key={i} onClick={() => setOpen(i)} style={{ padding: "7px 13px", borderRadius: 8, cursor: "pointer", fontWeight: 600, fontSize: 12.5, border: `2px solid ${open === i ? c.color : C.border}`, background: open === i ? c.color : C.white, color: open === i ? C.white : C.navy, transition: "all 0.15s" }}>{c.icon} {c.name}</button>
         ))}
       </div>
  
@@ -467,7 +467,7 @@ function Personas() {
  
       <div style={{ display: "flex", gap: 8, marginBottom: 20 }}>
         {personas.map((p, i) => (
-          <button key={i} onClick={() => setActive(i)} style={{ padding: "8px 16px", borderRadius: 8, cursor: "pointer", fontWeight: 600, fontSize: 13, border: `2px solid ${active === i ? C.violet : C.border}`, background: active === i ? C.violet : C.white, color: active === i ? C.white : C.navy, transition: "all 0.15s" }}>{p.emoji} {p.name.replace("The ", "")}</button>
+          <button type="button" key={i} onClick={() => setActive(i)} style={{ padding: "8px 16px", borderRadius: 8, cursor: "pointer", fontWeight: 600, fontSize: 13, border: `2px solid ${active === i ? C.violet : C.border}`, background: active === i ? C.violet : C.white, color: active === i ? C.white : C.navy, transition: "all 0.15s" }}>{p.emoji} {p.name.replace("The ", "")}</button>
         ))}
       </div>
  
@@ -485,7 +485,7 @@ function Personas() {
                 <div style={{ marginTop: 6, display: "flex", gap: 6 }}>
                   <span style={{ fontSize: 12, background: C.lavender, color: C.dark, padding: "2px 8px", borderRadius: 5, fontWeight: 600 }}>{p.revenue}</span>
                   <span style={{ fontSize: 12, background: C.lavender, color: C.dark, padding: "2px 8px", borderRadius: 5, fontWeight: 600 }}>{p.team}</span>
-                  <span style={{ fontSize: 12, background: C.hcp + "18", color: C.hcp, padding: "2px 8px", borderRadius: 5, fontWeight: 600 }}>{p.stack}</span>
+                  <span style={{ fontSize: 12, background: C.sky + "18", color: C.sky, padding: "2px 8px", borderRadius: 5, fontWeight: 600 }}>{p.stack}</span>
                 </div>
               </div>
             </div>
@@ -542,7 +542,7 @@ function Personas() {
 function Messaging() {
   const tracks = [
     {
-      label: "HCP Shop Talk Track", icon: "🏠", color: C.hcp,
+      label: "HCP Shop Talk Track", icon: "🏠", color: C.sky,
       context: "Prospect is currently on HousecallPro. They have HCP's basic chat. They're likely frustrated with it but haven't found an alternative. Dispatch Hero is the fix — not a replacement for HCP.",
       script: `"Hey [Name], quick question — are you using the chat widget that comes with HousecallPro?
  
@@ -595,7 +595,7 @@ Dispatch Hero gives you that same capability without locking you into a $500/mon
               <Pill color={t.color}>Confirmed</Pill>
             </div>
             <p style={{ fontSize: 12.5, color: C.muted, margin: "0 0 14px", lineHeight: 1.6, fontStyle: "italic", background: C.off, borderRadius: 7, padding: "8px 12px" }}>Context: {t.context}</p>
-            <pre style={{ fontSize: 13, color: C.text, background: C.navy, borderRadius: 8, padding: "14px 16px", margin: "0 0 14px", whiteSpace: "pre-wrap", lineHeight: 1.8, fontFamily: "inherit", color: C.lavender }}>{t.script}</pre>
+            <pre style={{ fontSize: 13, background: C.navy, borderRadius: 8, padding: "14px 16px", margin: "0 0 14px", whiteSpace: "pre-wrap", lineHeight: 1.8, fontFamily: "inherit", color: C.lavender }}>{t.script}</pre>
             <p style={{ fontSize: 11, fontWeight: 700, color: t.color, textTransform: "uppercase", letterSpacing: "0.07em", margin: "0 0 8px" }}>Key Framing Rules</p>
             {t.keyFrames.map((k, j) => (
               <div key={j} style={{ display: "flex", gap: 8, marginBottom: 5 }}>
@@ -639,7 +639,7 @@ function Outreach() {
   const [view, setView] = useState("email");
  
   const hcpEmails = [
-    { touch: "Email 1", day: "Day 1", type: "HCP Chat Hook", color: C.hcp,
+    { touch: "Email 1", day: "Day 1", type: "HCP Chat Hook", color: C.sky,
       subject: "Quick question about your HousecallPro chat widget",
       body: `[Name],
  
@@ -758,12 +758,12 @@ If the timing ever works, my calendar's below.
       <div style={{ display: "flex", gap: 8, marginBottom: 16 }}>
         <div style={{ display: "flex", gap: 6 }}>
           {[{ id: "hcp", label: "🏠 HCP Displacement" }, { id: "nofm", label: "📵 No-FSM Fear Anchor" }].map(t => (
-            <button key={t.id} onClick={() => setMode(t.id)} style={{ padding: "7px 14px", borderRadius: 8, cursor: "pointer", fontWeight: 600, fontSize: 12.5, border: `2px solid ${mode === t.id ? C.violet : C.border}`, background: mode === t.id ? C.violet : C.white, color: mode === t.id ? C.white : C.navy }}>{t.label}</button>
+            <button type="button" key={t.id} onClick={() => setMode(t.id)} style={{ padding: "7px 14px", borderRadius: 8, cursor: "pointer", fontWeight: 600, fontSize: 12.5, border: `2px solid ${mode === t.id ? C.violet : C.border}`, background: mode === t.id ? C.violet : C.white, color: mode === t.id ? C.white : C.navy }}>{t.label}</button>
           ))}
         </div>
         <div style={{ display: "flex", gap: 6, marginLeft: "auto" }}>
           {[{ id: "email", label: "📧 Email" }, { id: "call", label: "📞 Call Script" }].map(t => (
-            <button key={t.id} onClick={() => setView(t.id)} style={{ padding: "7px 14px", borderRadius: 8, cursor: "pointer", fontWeight: 600, fontSize: 12.5, border: `2px solid ${view === t.id ? C.dark : C.border}`, background: view === t.id ? C.dark : C.white, color: view === t.id ? C.white : C.navy }}>{t.label}</button>
+            <button type="button" key={t.id} onClick={() => setView(t.id)} style={{ padding: "7px 14px", borderRadius: 8, cursor: "pointer", fontWeight: 600, fontSize: 12.5, border: `2px solid ${view === t.id ? C.dark : C.border}`, background: view === t.id ? C.dark : C.white, color: view === t.id ? C.white : C.navy }}>{t.label}</button>
           ))}
         </div>
       </div>
@@ -827,7 +827,7 @@ If the timing ever works, my calendar's below.
 function Partners() {
   const partners = [
     {
-      icon: "🏠", name: "HousecallPro", tier: "Co-opetition Partner", color: C.hcp,
+      icon: "🏠", name: "HousecallPro", tier: "Co-opetition Partner", color: C.sky,
       headline: "Dispatch Hero replaces HCP's weakest feature — and that keeps customers on HCP instead of churning to ServiceTitan.",
       why: "HCP's chat bubble is universally disliked. If HCP customers don't get a proper AI intake solution, they eventually migrate to ServiceTitan for Scheduling Pro — and HCP loses the account entirely. Dispatch Hero prevents that migration. The pitch to HCP: 'We fix the part your customers hate, which keeps them on your platform.'",
       angle: "Your customers are frustrated with your chat widget. We replace it — and they stay in HCP for everything else. We're not competing with HCP; we're fixing the feature that's driving your churn.",
@@ -869,7 +869,7 @@ function Partners() {
  
       <div style={{ display: "flex", gap: 8, marginBottom: 20, flexWrap: "wrap" }}>
         {partners.map((p, i) => (
-          <button key={i} onClick={() => setActive(i)} style={{ padding: "8px 16px", borderRadius: 8, cursor: "pointer", fontWeight: 600, fontSize: 12.5, border: `2px solid ${active === i ? p.color : C.border}`, background: active === i ? p.color : C.white, color: active === i ? C.white : C.navy, transition: "all 0.15s" }}>{p.icon} {p.name}</button>
+          <button type="button" key={i} onClick={() => setActive(i)} style={{ padding: "8px 16px", borderRadius: 8, cursor: "pointer", fontWeight: 600, fontSize: 12.5, border: `2px solid ${active === i ? p.color : C.border}`, background: active === i ? p.color : C.white, color: active === i ? C.white : C.navy, transition: "all 0.15s" }}>{p.icon} {p.name}</button>
         ))}
       </div>
  
@@ -933,7 +933,7 @@ function Seasonal() {
  
       <div style={{ display: "flex", gap: 8, marginBottom: 20 }}>
         {["hvac", "plumbing"].map(v => (
-          <button key={v} onClick={() => setTab(v)} style={{ padding: "8px 18px", borderRadius: 8, cursor: "pointer", fontWeight: 700, fontSize: 13, border: `2px solid ${tab === v ? C.violet : C.border}`, background: tab === v ? C.violet : C.white, color: tab === v ? C.white : C.navy }}>{v === "hvac" ? "🌡️ HVAC" : "🔧 Plumbing (Same Framework)"}</button>
+          <button type="button" key={v} onClick={() => setTab(v)} style={{ padding: "8px 18px", borderRadius: 8, cursor: "pointer", fontWeight: 700, fontSize: 13, border: `2px solid ${tab === v ? C.violet : C.border}`, background: tab === v ? C.violet : C.white, color: tab === v ? C.white : C.navy }}>{v === "hvac" ? "🌡️ HVAC" : "🔧 Plumbing (Same Framework)"}</button>
         ))}
       </div>
  
@@ -989,8 +989,8 @@ export default function DispatchHeroGTM() {
           <p style={{ color: C.lavender, fontSize: 12, margin: 0, opacity: 0.6 }}>Home Services GTM Strategy — SDR Playbook</p>
         </div>
         <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-          {[["HCP / No-FSM Only", C.hcp], ["3–15 Techs", C.green], ["$500K–$3M", C.violet], ["❌ No ST Shops", C.red]].map(([label, color]) => (
-            <span key={label} style={{ fontSize: 11, background: color + "22", color: label.startsWith("❌") ? C.red : color === C.hcp ? C.hcp : color, border: `1px solid ${color}35`, borderRadius: 20, padding: "3px 10px", fontWeight: 700 }}>{label}</span>
+          {[["HCP / No-FSM Only", C.sky], ["3–15 Techs", C.green], ["$500K–$3M", C.violet], ["❌ No ST Shops", C.red]].map(([label, color]) => (
+            <span key={label} style={{ fontSize: 11, background: color + "22", color: label.startsWith("❌") ? C.red : color === C.sky ? C.sky : color, border: `1px solid ${color}35`, borderRadius: 20, padding: "3px 10px", fontWeight: 700 }}>{label}</span>
           ))}
         </div>
       </div>
@@ -998,7 +998,7 @@ export default function DispatchHeroGTM() {
       {/* Tabs */}
       <div style={{ background: C.white, borderBottom: `1px solid ${C.border}`, padding: "0 24px", display: "flex", gap: 2, overflowX: "auto" }}>
         {TABS.map(t => (
-          <button key={t.id} onClick={() => setActiveTab(t.id)} style={{ padding: "12px 14px", fontSize: 12.5, fontWeight: 600, cursor: "pointer", background: "none", border: "none", color: activeTab === t.id ? C.violet : C.muted, borderBottom: activeTab === t.id ? `2px solid ${C.violet}` : "2px solid transparent", whiteSpace: "nowrap", transition: "all 0.15s" }}>{t.label}</button>
+          <button type="button" key={t.id} onClick={() => setActiveTab(t.id)} style={{ padding: "12px 14px", fontSize: 12.5, fontWeight: 600, cursor: "pointer", background: "none", border: "none", color: activeTab === t.id ? C.violet : C.muted, borderBottom: activeTab === t.id ? `2px solid ${C.violet}` : "2px solid transparent", whiteSpace: "nowrap", transition: "all 0.15s" }}>{t.label}</button>
         ))}
       </div>
  
